@@ -50,9 +50,8 @@
                     Action
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="#">Export</a></li>
+                    <li><a class="dropdown-item" href="#">Delete</a></li>
                 </ul>
             </div>
         </div>
@@ -61,13 +60,13 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-sm btn-primary w-100 rounded-0">Create</button>
+                    <button class="btn btn-sm btn-primary w-100 rounded-0" id="btn-create">Create</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-sm btn-primary w-100 rounded-0">Edit</button>
+                    <button class="btn btn-sm btn-primary w-100 rounded-0" id="btn-edit">Edit</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-sm btn-secondary w-100 rounded-0">Discard</button>
+                    <button class="btn btn-sm btn-secondary w-100 rounded-0" id="btn-discard">Discard</button>
                 </div>
             </div>
         </div>
