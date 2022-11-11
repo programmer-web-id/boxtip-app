@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ResPartner as Partner;
-
 use Illuminate\Http\Request;
+
+use App\Models\ResPartner as Partner;
+use App\Models\ProductCategory;
+use App\Models\ServiceConsideration;
 
 class CustomerController extends Controller
 {
@@ -58,6 +60,12 @@ class CustomerController extends Controller
     public function show($id)
     {
         //
+        return view('customer.form', [
+            'data' => Partner::findOrFail($id),
+            'view_mode' => 'read',
+            'regular_bought_product_ids' => ProductCategory::all(),
+            'service_consideration_ids' => ServiceConsideration::all(),
+        ]);
     }
 
     /**
@@ -69,6 +77,12 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
+        return view('customer.form', [
+            'data' => Partner::findOrFail($id),
+            'view_mode' => 'edit',
+            'service_consideration_ids' => ServiceConsideration::all(),
+            'regular_bought_product_ids' => ProductCategory::all(),
+        ]);
     }
 
     /**
