@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary d-none">Submit</button>
+            <button type="submit" class="btn btn-primary d-none" id="btn-submit">Submit</button>
         </form>
     @else
         <form method="PUT">
@@ -265,7 +265,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary d-none">Submit</button>
+            <button type="submit" class="btn btn-primary d-none" id="btn-submit">Submit</button>
         </form>
     @endif
 @endsection
