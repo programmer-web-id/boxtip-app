@@ -78,7 +78,6 @@ class CustomerController extends Controller
             'service_consideration_id' => ['required'],
         ]);
 
-        // dd($validatedData);
 
         $new = ResPartner::create([
             'code' => $sequence->prefix . str_pad($sequence->running_number, $sequence->length, '0', STR_PAD_LEFT),
