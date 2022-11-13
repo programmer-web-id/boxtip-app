@@ -19,10 +19,12 @@ class ResPartner extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
+
     public function serviceConsideration()
     {
         return $this->belongsTo(ServiceConsideration::class);
     }
+
     public function vouchers()
     {
         return $this->hasMany(Voucher::class);

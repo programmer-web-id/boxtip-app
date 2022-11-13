@@ -62,7 +62,12 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Export</a></li>
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                    <li><button class="dropdown-item" id="btn-delete">Delete</button></li>
+                    <form action="/customer" method="POST" id="form-delete" class="d-none">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" id="btn-form-delete"></button>
+                    </form>
                 </ul>
             </div>
         </div>

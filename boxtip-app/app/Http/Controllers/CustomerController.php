@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\ResPartner as Partner;
 use App\Models\ProductCategory;
 use App\Models\ResPartner;
 use App\Models\ServiceConsideration;
+use App\Models\IrSequence;
 
 class CustomerController extends Controller
 {
@@ -32,7 +32,7 @@ class CustomerController extends Controller
 
         return view('customer.tree', [
             'title' => 'Customer',
-            'customers' => Partner::where('type', 'customer')->get(),
+            'customers' => ResPartner::where('type', 'customer')->get(),
             'fields' => $partner->getTableColumns(),
         ]);
     }
@@ -62,7 +62,47 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sequence = IrSequence::where(['model' => 'res_partners', 'sequence_code' => 'create.customer'])->first();
+
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'birth_date' => ['required'],
+            'is_male' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'is_new_to_taobao' => ['required'],
+            'regular_bought_product_id' => ['required'],
+            'service_consideration_id' => ['required'],
+        ]);
+
+        // dd($validatedData);
+
+        $new = ResPartner::create([
+            'code' => $sequence->prefix . str_pad($sequence->running_number, $sequence->length, '0', STR_PAD_LEFT),
+            'old_code' => $request->old_code,
+            'type' => 'customer',
+            'name' => $request->name,
+            'birth_date' => $request->birth_date,
+            'is_male' => $request->is_male,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'province' => $request->province,
+            'city' => $request->city,
+            'district' => $request->district,
+            'is_new_to_taobao' => $request->is_new_to_taobao,
+            'regular_bought_product_id' => $request->regular_bought_product_id,
+            'service_consideration_id' => $request->service_consideration_id,
+        ]);
+
+        if ($new) {
+            $sequence->running_number += 1;
+            $sequence->save();
+        };
+
+        return redirect('/customer/' . $new->id);
     }
 
     /**
@@ -76,7 +116,7 @@ class CustomerController extends Controller
         //
         return view('customer.form', [
             'title' => 'Customer',
-            'data' => Partner::findOrFail($id),
+            'data' => ResPartner::findOrFail($id),
             'view_mode' => 'read',
             'regular_bought_product_ids' => ProductCategory::all(),
             'service_consideration_ids' => ServiceConsideration::all(),
@@ -94,7 +134,7 @@ class CustomerController extends Controller
         //
         return view('customer.form', [
             'title' => 'Customer',
-            'data' => Partner::findOrFail($id),
+            'data' => ResPartner::findOrFail($id),
             'view_mode' => 'edit',
             'service_consideration_ids' => ServiceConsideration::all(),
             'regular_bought_product_ids' => ProductCategory::all(),
@@ -110,27 +150,39 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'birth_date' => ['required'],
+            'is_male' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'is_new_to_taobao' => ['required'],
+            'regular_bought_product_id' => ['required'],
+            'service_consideration_id' => ['required'],
+        ]);
         //
         $customer = ResPartner::findOrFail($id);
 
-        $customer->code = $request->input('code');
-        $customer->old_code = $request->input('old_code');
-        $customer->name = $request->input('name');
-        $customer->birth_date = $request->input('birth_date');
-        $customer->is_male = $request->input('is_male');
-        $customer->email = $request->input('email');
-        $customer->phone = $request->input('phone');
-        $customer->province = $request->input('province');
-        $customer->city = $request->input('city');
-        $customer->district = $request->input('district');
-        $customer->is_new_to_taobao = $request->input('is_new_to_taobao');
-        $customer->regular_bought_product_id = $request->input('regular_bought_product_id');
-        $customer->service_consideration_id = $request->input('service_consideration_id');
+        // $customer->code = $request->code;
+        $customer->old_code = $request->old_code;
+        $customer->name = $request->name;
+        $customer->birth_date = $request->birth_date;
+        $customer->is_male = $request->is_male;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->province = $request->province;
+        $customer->city = $request->city;
+        $customer->district = $request->district;
+        $customer->is_new_to_taobao = $request->is_new_to_taobao;
+        $customer->regular_bought_product_id = $request->regular_bought_product_id;
+        $customer->service_consideration_id = $request->service_consideration_id;
 
         $customer->save();
-        // dd($customer);
 
-        return redirect('/customer/${id}');
+        return redirect('/customer/' . $id);
     }
 
     /**
@@ -142,5 +194,8 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+        $ids = explode(',', $id);
+        ResPartner::destroy($ids);
+        return redirect('/customer');
     }
 }

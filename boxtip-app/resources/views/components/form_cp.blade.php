@@ -1,7 +1,8 @@
 <div class="container-fluid py-3 bg-light border-bottom">
     <div class="row mb-3">
         <div class="col">
-            <button class="btn btn-link nav-link link-primary px-0" id="btn-back">{{ $title }} List</button>
+            <button class="btn btn-link nav-link link-primary px-0" id="btn-back"><i
+                    class="bi bi-arrow-left-circle-fill"></i> {{ $title }} List</button>
             <h1>{{ $data ? $data->name : 'New' }}</h1>
         </div>
     </div>

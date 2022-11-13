@@ -4,43 +4,56 @@
         {{-- //create --}}
         <form method="POST">
             @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-3 row">
                         <label for="input-code" class="col-sm-4 col-form-label fw-bold">Customer Code</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-code" name="code">
+                        <div class="col-sm-8 d-flex align-items-center">
+                            New Code
+                            {{-- <input type="text" class="form-control" id="input-code" name="code"> --}}
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-old-code" class="col-sm-4 col-form-label fw-bold">Old Code</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-old-code" name="old_code">
+                            <input type="text" class="form-control" id="input-old-code" name="old_code"
+                                value="{{ old('old_code') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-name" class="col-sm-4 col-form-label fw-bold">Customer Name</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-name" name="name">
+                            <input type="text" class="form-control" id="input-name" name="name"
+                                value="{{ old('name') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-birth-date" class="col-sm-4 col-form-label fw-bold">Birth Date</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control" id="input-birth-date" name="birth_date">
+                            <input type="date" class="form-control" id="input-birth-date" name="birth_date"
+                                value="{{ old('birth_date') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-gender" class="col-sm-4 col-form-label fw-bold">Gender</label>
                         <div class="col-sm-8">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="input-gender-male"
-                                    value="1" checked>
+                                <input class="form-check-input" type="radio" name="is_male" id="input-gender-male"
+                                    value="1" checked @checked(old('is_male'))>
                                 <label class="form-check-label" for="input-gender-male">Male</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" id="input-gender-female"
-                                    value="0">
+                                <input class="form-check-input" type="radio" name="is_male" id="input-gender-female"
+                                    value="0" @checked(!old('is_male') && old('is_male') != null)>
                                 <label class="form-check-label" for="input-gender-female">Female</label>
                             </div>
                         </div>
@@ -48,31 +61,36 @@
                     <div class="mb-3 row">
                         <label for="input-email" class="col-sm-4 col-form-label fw-bold">Email</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="input-email" name="email">
+                            <input type="email" class="form-control" id="input-email" name="email"
+                                value="{{ old('email') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-phone" class="col-sm-4 col-form-label fw-bold">Phone</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-phone" name="phone">
+                            <input type="text" class="form-control" id="input-phone" name="phone"
+                                value="{{ old('phone') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-province" class="col-sm-4 col-form-label fw-bold">Province</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-province" name="province">
+                            <input type="text" class="form-control" id="input-province" name="province"
+                                value="{{ old('province') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-city" class="col-sm-4 col-form-label fw-bold">City</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-city" name="city">
+                            <input type="text" class="form-control" id="input-city" name="city"
+                                value="{{ old('city') }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="input-district" class="col-sm-4 col-form-label fw-bold">District</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="input-district" name="district">
+                            <input type="text" class="form-control" id="input-district" name="district"
+                                value="{{ old('district') }}">
                         </div>
                     </div>
                 </div>
@@ -83,12 +101,12 @@
                         <div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="is_new_to_taobao"
-                                    id="input-new-user" value="1" checked>
+                                    id="input-new-user" value="1" checked @checked(old('is_new_to_taobao'))>
                                 <label class="form-check-label" for="input-new-user">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="is_new_to_taobao"
-                                    id="input-not-new-user" value="0">
+                                    id="input-not-new-user" value="0" @checked(!old('is_new_to_taobao') && old('is_new_to_taobao') != null)>
                                 <label class="form-check-label" for="input-not-new-user">No</label>
                             </div>
                         </div>
@@ -98,39 +116,26 @@
                             dibeli
                             dari
                             Taobao?</label>
-                        <select class="form-select" id="input-regular-bought-product" name="regular_bought_product">
-                            <option selected>Select Category</option>
-                            <option value="Books">Books</option>
-                            <option value="Kitchenwares">Kitchenwares</option>
-                            <option value="Eletronics">Eletronics</option>
-                            <option value="Baby and Kids">Baby and Kids</option>
-                            <option value="Men Fashions">Men Fashions</option>
-                            <option value="Women Fashions">Women Fashions</option>
-                            <option value="Moms">Moms</option>
-                            <option value="Cosmetics">Cosmetics</option>
-                            <option value="Homewares">Homewares</option>
-                            <option value="F&B">F&B</option>
-                            <option value="Stationeries">Stationeries</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Automotives">Automotives</option>
-                            <option value="Pet Needs">Pet Needs</option>
-                            <option value="Tools">Tools</option>
-                            <option value="Others">Others</option>
-                            <option value="Phone Stuff">Phone Stuff</option>
-                            <option value="Accessories">Accessories</option>
+                        <select class="form-select" id="input-regular-bought-product" name="regular_bought_product_id">
+                            <option selected disabled>Select Category</option>
+                            @foreach ($regular_bought_product_ids as $regular_bought_product_id)
+                                <option value="{{ $regular_bought_product_id->id }}" @selected(old('regular_bought_product_id') == $regular_bought_product_id->id)>
+                                    {{ $regular_bought_product_id->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="input-import-consideration" class="form-label fw-bold">Apa yang menjadi pertimbangan
                             ketika
                             memilih Jastip ataupun Jasa Import dari China?</label>
-                        <select class="form-select" id="input-import-consideration" name="service_consideration">
-                            <option selected>Select One</option>
-                            <option value="Ongkos Kirim">Ongkos Kirim</option>
-                            <option value="Pelayanan Admin">Pelayanan Admin</option>
-                            <option value="Tracking Status">Tracking Status</option>
-                            <option value="Kejelasan Daftar Belanja">Kejelasan Daftar Belanja</option>
-                            <option value="Kecepatan Pengiriman">Kecepatan Pengiriman</option>
+                        <select class="form-select" id="input-import-consideration" name="service_consideration_id">
+                            <option selected disabled>Select One</option>
+                            @foreach ($service_consideration_ids as $service_consideration_id)
+                                <option value="{{ $service_consideration_id->id }}" @selected(old('service_consideration_id') == $service_consideration_id->id)>
+                                    {{ $service_consideration_id->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -141,36 +146,46 @@
         {{-- //existing --}}
         @if ($view_mode == 'edit')
             {{-- edit mode --}}
-            <form method="PUT" action="/customer/{{ $data->id }}">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form method="POST" action="/customer/{{ $data->id }}">
                 @csrf
+                <input type="hidden" name="_method" value="PUT">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="mb-3 row">
                             <label for="input-code" class="col-sm-4 col-form-label fw-bold">Customer Code</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-code" name="code"
-                                    value={{ old('code', $data->code) }} required>
+                                    value="{{ old('code', $data->code) }}" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-old-code" class="col-sm-4 col-form-label fw-bold">Old Code</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-old-code" name="old_code"
-                                    value={{ old('old_code', $data->old_code) }} required>
+                                    value="{{ old('old_code', $data->old_code) }}" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-name" class="col-sm-4 col-form-label fw-bold">Customer Name</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-name" name="name"
-                                    value={{ old('name', $data->name) }} required>
+                                    value="{{ old('name', $data->name) }}" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-birth-date" class="col-sm-4 col-form-label fw-bold">Birth Date</label>
                             <div class="col-sm-8">
                                 <input type="date" class="form-control" id="input-birth-date" name="birth_date"
-                                    value={{ old('birth_date', $data->birth_date) }} required>
+                                    value="{{ old('birth_date', $data->birth_date) }}" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -192,35 +207,35 @@
                             <label for="input-email" class="col-sm-4 col-form-label fw-bold">Email</label>
                             <div class="col-sm-8">
                                 <input type="email" class="form-control" id="input-email" name="email"
-                                    value={{ old('email', $data->email) }}>
+                                    value="{{ old('email', $data->email) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-phone" class="col-sm-4 col-form-label fw-bold">Phone</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-phone" name="phone"
-                                    value={{ old('phone', $data->phone) }}>
+                                    value="{{ old('phone', $data->phone) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-province" class="col-sm-4 col-form-label fw-bold">Province</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-province" name="province"
-                                    value={{ old('province', $data->province) }}>
+                                    value="{{ old('province', $data->province) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-city" class="col-sm-4 col-form-label fw-bold">City</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-city" name="city"
-                                    value={{ old('city', $data->city) }}>
+                                    value="{{ old('city', $data->city) }}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="input-district" class="col-sm-4 col-form-label fw-bold">District</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="input-district" name="district"
-                                    value={{ old('district', $data->district) }}>
+                                    value="{{ old('district', $data->district) }}">
                             </div>
                         </div>
                     </div>
@@ -248,7 +263,7 @@
                             </label>
                             <select class="form-select" id="input-regular-bought-product-id"
                                 name="regular_bought_product_id" required>
-                                <option selected>Select Category</option>
+                                <option selected disabled>Select Category</option>
                                 @foreach ($regular_bought_product_ids as $regular_bought_product_id)
                                     <option value="{{ $regular_bought_product_id->id }}" @selected(old('regular_bought_product_id', $data->regular_bought_product_id) == $regular_bought_product_id->id)>
                                         {{ $regular_bought_product_id->name }}
@@ -262,7 +277,7 @@
                             </label>
                             <select class="form-select" id="input-service-consideration-id"
                                 name="service_consideration_id">
-                                <option selected>Select One</option>
+                                <option selected disabled>Select One</option>
                                 @foreach ($service_consideration_ids as $service_consideration_id)
                                     <option value="{{ $service_consideration_id->id }}" @selected(old('service_consideration_id', $data->service_consideration_id) == $service_consideration_id->id)>
                                         {{ $service_consideration_id->name }}

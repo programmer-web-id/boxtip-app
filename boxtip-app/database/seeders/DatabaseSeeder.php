@@ -161,5 +161,20 @@ class DatabaseSeeder extends Seeder
             'remarks' => 'Sign up voucher',
             'res_partner_id' => 3,
         ]);
+        DB::table('ir_sequences')->insert([
+            'model' => 'res_partners',
+            'sequence_code' => 'create.customer',
+            'prefix' => 'BOX',
+            'is_number' => true,
+            'length' => 3,
+            'running_number' => 1,
+        ]);
+        DB::table('ir_sequences')->insert([
+            'model' => 'vouchers',
+            'sequence_code' => 'signup.voucher',
+            'prefix' => 'NEW-',
+            'is_number' => false,
+            'length' => 3,
+        ]);
     }
 }
