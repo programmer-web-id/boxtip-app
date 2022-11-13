@@ -20,24 +20,18 @@
             </thead>
             <tbody>
                 @foreach ($customers as $customer)
-                    <tr>
-                        <td><input type="checkbox" class="check-row" data-id="{{ $customer->id }}"></td>
-                        <td>{{ $customer->name }}</td>
-                        <td>{{ $customer->code }}</td>
-                        <td>{{ $customer->old_code }}</td>
-                        <td>{{ $customer->birth_date }}</td>
-                        <td>
-                            @if ($customer->is_male)
-                                Male
-                            @else
-                                Female
-                            @endif
-                        </td>
-                        <td>{{ $customer->email }}</td>
-                        <td>{{ $customer->phone }}</td>
-                        <td>{{ $customer->province }}</td>
-                        <td>{{ $customer->city }}</td>
-                        <td>{{ $customer->district }}</td>
+                    <tr class="data-row" data-id="{{ $customer->id }}" data-redirect="/customer/{{ $customer->id }}">
+                        <td><input type="checkbox" class="check-row"></td>
+                        <td class="data-column" data-column="name">{{ $customer->name }}</td>
+                        <td class="data-column" data-column="code">{{ $customer->code }}</td>
+                        <td class="data-column" data-column="old_code">{{ $customer->old_code }}</td>
+                        <td class="data-column" data-column="birth_date">{{ $customer->birth_date }}</td>
+                        <td class="data-column" data-column="is_male">{{ $customer->is_male ? 'Male' : 'Female' }}</td>
+                        <td class="data-column" data-column="email">{{ $customer->email }}</td>
+                        <td class="data-column" data-column="phone">{{ $customer->phone }}</td>
+                        <td class="data-column" data-column="province">{{ $customer->province }}</td>
+                        <td class="data-column" data-column="city">{{ $customer->city }}</td>
+                        <td class="data-column" data-column="district">{{ $customer->district }}</td>
                     </tr>
                 @endforeach
             </tbody>

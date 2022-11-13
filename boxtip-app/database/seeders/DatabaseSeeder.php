@@ -140,5 +140,26 @@ class DatabaseSeeder extends Seeder
             // 'regular_bought_product_id' => 'Makanan',
             // 'service_consideration_id' => 'Lama Pengiriman',
         ]);
+        DB::table('vouchers')->insert([
+            'voucher_code' => 'SIGNUP0001',
+            'issued_date' => '2022/11/09',
+            'used_date' => '2022/11/11',
+            'remarks' => 'Sign up voucher',
+            'res_partner_id' => 1,
+        ]);
+        DB::table('vouchers')->insert([
+            'voucher_code' => 'SIGNUP0002',
+            'issued_date' => '2022/11/10',
+            'used_date' => '2022/11/11',
+            'remarks' => 'Sign up voucher',
+            'res_partner_id' => 2,
+        ]);
+        DB::table('vouchers')->insert([
+            'voucher_code' => 'SIGNIN0003',
+            'issued_date' => '2022/11/12',
+            // 'used_date' => ,
+            'remarks' => 'Sign up voucher',
+            'res_partner_id' => 3,
+        ]);
     }
 }

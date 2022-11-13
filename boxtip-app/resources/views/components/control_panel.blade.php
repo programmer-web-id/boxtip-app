@@ -1,5 +1,6 @@
-<div class="container-fluid py-5 bg-light border-bottom">
-    <div class="row mb-4">
+<div class="container-fluid py-3 bg-light border-bottom">
+    <h1>{{ $title }} List</h1>
+    <div class="row my-3">
         <div class="col-md-11">
             <div class="row">
                 <div class="col-5">
@@ -8,12 +9,16 @@
                             <span>Quick Filter 1</span>
                         </div>
                         <div class="col">
-                            <select name="filterField1" class="form-select form-select-sm rounded-0" id="filterField1">
-                                <option value="-1">Filter Field 1</option>
+                            <select name="filter-field-1" class="form-select form-select-sm rounded-0"
+                                id="filter-field-1">
+                                <option selected disabled value="-1">Filter Field 1</option>
+                                @foreach ($fields as $field)
+                                    <option value="{{ $field }}" class="filter-option"></option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <input type="text" placeholder="Filter Input 1"
+                            <input type="text" placeholder="Filter Input 1" id="filter-input-1"
                                 class="form-control form-control-sm rounded-0">
                         </div>
                     </div>
@@ -24,20 +29,26 @@
                             <span>Quick Filter 2</span>
                         </div>
                         <div class="col">
-                            <select name="filterField2" class="form-select form-select-sm rounded-0" id="filterField2">
-                                <option value="-1">Filter Field 2</option>
+                            <select name="filter-field-2" class="form-select form-select-sm rounded-0"
+                                id="filter-field-2">
+                                <option selected disabled value="-1">Filter Field 2</option>
+                                @foreach ($fields as $field)
+                                    <option value="{{ $field }}" class="filter-option"></option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col">
-                            <input type="text" placeholder="Filter Input 2"
+                            <input type="text" placeholder="Filter Input 2" id="filter-input-2"
                                 class="form-control form-control-sm rounded-0">
                         </div>
                     </div>
                 </div>
                 <div class="col-2 text-center">
                     <div class="row">
-                        <div class="col-6"><button class="btn btn-sm btn-warning rounded-0 w-100">Query</button></div>
-                        <div class="col-6"><button class="btn btn-sm btn-secondary rounded-0 w-100">Reset</button>
+                        <div class="col-6"><button class="btn btn-sm btn-warning rounded-0 w-100"
+                                id="btn-query">Query</button></div>
+                        <div class="col-6"><button class="btn btn-sm btn-secondary rounded-0 w-100"
+                                id="btn-reset-query">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -59,14 +70,8 @@
     <div class="row">
         <div class="col-md-2">
             <div class="row">
-                <div class="col">
+                <div class="col-4">
                     <button class="btn btn-sm btn-primary w-100 rounded-0" id="btn-create">Create</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-sm btn-primary w-100 rounded-0" id="btn-edit">Edit</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-sm btn-secondary w-100 rounded-0" id="btn-discard">Discard</button>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 
 class VoucherController extends Controller
@@ -23,8 +24,13 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        //
-        return view('layouts.voucher');
+        $voucher = new Voucher;
+        //        
+        return view('voucher.tree', [
+            'title' => 'Voucher',
+            'vouchers' => Voucher::all(),
+            'fields' => $voucher->getTableColumns(),
+        ]);
     }
 
     /**

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->char('voucher_code');
             $table->date('issued_date');
-            $table->date('used_date');
+            $table->date('used_date')->nullable();
             $table->text('remarks');
             $table->foreignId('res_partner_id');
         });
