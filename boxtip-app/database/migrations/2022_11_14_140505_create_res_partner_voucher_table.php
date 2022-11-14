@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vouchers', function (Blueprint $table) {
+        Schema::create('res_partner_voucher', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->char('voucher_code');
-            $table->date('issued_date');
-            $table->date('used_date')->nullable();
-            $table->text('remarks')->nullable();
+            $table->foreignId('res_partner_id');
+            $table->foreignId('voucher_id');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('res_partner_voucher');
     }
 };

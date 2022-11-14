@@ -9,6 +9,8 @@ use App\Models\Voucher;
 use App\Models\ProductCategory;
 use App\Models\ServiceConsideration;
 
+use App\Models\IrSequence;
+
 class ResPartner extends Model
 {
     use HasFactory;
@@ -27,7 +29,7 @@ class ResPartner extends Model
 
     public function vouchers()
     {
-        return $this->hasMany(Voucher::class);
+        return $this->belongsToMany(Voucher::class, 'res_partner_voucher');
     }
 
     public function getTableColumns()
@@ -46,5 +48,19 @@ class ResPartner extends Model
             }
         }
         return $array;
+    }
+
+    public function generateCustomerCode(IrSequence $sequenceId)
+    {
+        if ($sequenceId->is_number) {
+            $newSequence = $sequenceId->prefix . str_pad($sequenceId->running_number, $sequenceId->length, '0', STR_PAD_LEFT);
+            if ($newSequence) {
+                $sequenceId->running_number += 1;
+                $sequenceId->save();
+            }
+            return $newSequence;
+        } else {
+            return $sequenceId->prefix . substr(str_shuffle(str_repeat($x = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($sequenceId->length / strlen($x)))), 1, $sequenceId->length);
+        }
     }
 }

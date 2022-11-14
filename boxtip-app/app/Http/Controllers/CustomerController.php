@@ -8,6 +8,10 @@ use App\Models\ProductCategory;
 use App\Models\ResPartner;
 use App\Models\ServiceConsideration;
 use App\Models\IrSequence;
+use App\Models\Voucher;
+
+use App\Exports\ResPartnersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -62,7 +66,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $sequence = IrSequence::where(['model' => 'res_partners', 'sequence_code' => 'create.customer'])->first();
+        $resPartner = new ResPartner();
+        $voucher = new Voucher();
+        $sequenceId = IrSequence::where(['model' => 'res_partners', 'sequence_code' => 'create.customer'])->first();
 
         $validatedData = $request->validate([
             'name' => ['required'],
@@ -80,7 +86,7 @@ class CustomerController extends Controller
 
 
         $new = ResPartner::create([
-            'code' => $sequence->prefix . str_pad($sequence->running_number, $sequence->length, '0', STR_PAD_LEFT),
+            'code' => $resPartner->generateCustomerCode($sequenceId),
             'old_code' => $request->old_code,
             'type' => 'customer',
             'name' => $request->name,
@@ -97,11 +103,10 @@ class CustomerController extends Controller
         ]);
 
         if ($new) {
-            $sequence->running_number += 1;
-            $sequence->save();
-        };
+            $newVoucher = $voucher->generateVoucher($new, IrSequence::where(['model' => 'vouchers', 'sequence_code' => 'signup.voucher'])->first());
+        }
 
-        return redirect('/customer/' . $new->id);
+        return redirect('/customer/' . $new->id)->with('created', [true, $new, $newVoucher]);
     }
 
     /**
@@ -196,5 +201,13 @@ class CustomerController extends Controller
         $ids = explode(',', $id);
         ResPartner::destroy($ids);
         return redirect('/customer');
+    }
+
+    public function export($ids)
+    {
+        $customers = new ResPartnersExport();
+        $customers->setIds(explode(',', $ids));
+
+        return Excel::download($customers, 'customers.xlsx');
     }
 }

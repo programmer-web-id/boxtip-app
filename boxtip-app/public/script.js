@@ -79,6 +79,7 @@ $("#btn-query").click(function () {
     } else {
     }
 });
+
 $("#btn-delete").click(function () {
     let ids = [];
     $(".check-row:checked").each(function () {
@@ -88,27 +89,22 @@ $("#btn-delete").click(function () {
         $("#form-delete").attr("action", "/customer/" + ids);
         $("#btn-form-delete").click();
     }
-    // $.ajax({
-    //     url:"/customer/delete",
-    //     data:{
-    //         ids: [1,2,3],
-    //         _method:"DELETE"
-    //     },
-    //     method: 'post',
-    //     beforeSend: function(){
-    //         console.log('before')
-    //         $('.ajax-loading').addClass('active');
-    //     },
-    //     success: function(){
-    //         console.log('success')
-    //         alert('Data deleted!')
-    //     },
-    //     complete:function(){
-    //         console.log('complete')
-    //         $('.ajax-loading').removeClass('active');
-    //     }
+});
 
-    // });
+$("#btn-export").click(function () {
+    let ids = [];
+    $(".check-row:checked").each(function () {
+        ids.push($(this).parent().parent().data("id"));
+    });
+    if (ids.length > 0) {
+        location.href = "/customer/export/" + ids;
+    } else {
+        alert("No row to export!");
+    }
+});
+
+$("#btn-close-alert").click(function () {
+    $("div").remove(".data-created");
 });
 
 function validateColumn(column, columnInput, number) {

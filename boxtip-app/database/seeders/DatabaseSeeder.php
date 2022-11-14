@@ -145,21 +145,17 @@ class DatabaseSeeder extends Seeder
             'issued_date' => '2022/11/09',
             'used_date' => '2022/11/11',
             'remarks' => 'Sign up voucher',
-            'res_partner_id' => 1,
         ]);
         DB::table('vouchers')->insert([
             'voucher_code' => 'SIGNUP0002',
             'issued_date' => '2022/11/10',
             'used_date' => '2022/11/11',
             'remarks' => 'Sign up voucher',
-            'res_partner_id' => 2,
         ]);
         DB::table('vouchers')->insert([
             'voucher_code' => 'SIGNIN0003',
             'issued_date' => '2022/11/12',
-            // 'used_date' => ,
             'remarks' => 'Sign up voucher',
-            'res_partner_id' => 3,
         ]);
         DB::table('ir_sequences')->insert([
             'model' => 'res_partners',
@@ -174,7 +170,7 @@ class DatabaseSeeder extends Seeder
             'sequence_code' => 'signup.voucher',
             'prefix' => 'NEW-',
             'is_number' => false,
-            'length' => 3,
+            'length' => 7,
         ]);
     }
 }

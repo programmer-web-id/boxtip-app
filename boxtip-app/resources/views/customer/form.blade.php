@@ -142,27 +142,6 @@
             </div>
             <button type="submit" class="btn btn-primary d-none" id="btn-submit">Submit</button>
         </form>
-        <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Launch static backdrop modal
-        </button>
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     @else
         {{-- //existing --}}
         @if ($view_mode == 'edit')
@@ -407,5 +386,23 @@
                 <button type="submit" class="btn btn-primary d-none" id="btn-submit">Submit</button>
             </form>
         @endif
+    @endif
+    @if (session('created'))
+        <div class="data-created">
+            <div class="data-description">
+                <h2 class="fs-1 mb-4">Congratulations</h2>
+                <h1 style="font-size: 3rem;">
+                    {{ session('created')[1]->code . ' - ' . session('created')[1]->name }}
+                </h1>
+                <p class="fs-5">Akun anda sudah aktif dan bisa digunakan.<br />
+                    Silahkan copy kode voucher dibawah untuk mendapatkan Promo Free Ongkir 1 kg</p>
+                <div class="data-content border p-4 mb-5">
+                    <h3 style="font-size: 4rem;">
+                        {{ session('created')[2]->voucher_code }}
+                    </h3>
+                </div>
+                <button class="btn btn-secondary float-end" id="btn-close-alert">Close</button>
+            </div>
+        </div>
     @endif
 @endsection

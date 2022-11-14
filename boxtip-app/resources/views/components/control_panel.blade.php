@@ -61,7 +61,7 @@
                     Action
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Export</a></li>
+                    <li><button class="dropdown-item" id="btn-export">Export</button></li>
                     <li><button class="dropdown-item" id="btn-delete">Delete</button></li>
                     <form action="/customer" method="POST" id="form-delete" class="d-none">
                         @csrf

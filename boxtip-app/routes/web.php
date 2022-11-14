@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PortalCustomerController;
 use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -25,15 +26,20 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/customer', [CustomerController::class, 'index']);
 Route::get('/customer/create', [CustomerController::class, 'create']);
 Route::post('/customer/create', [CustomerController::class, 'store']);
+Route::get('/customer/export/{ids}', [CustomerController::class, 'export']);
 Route::get('/customer/{id}', [CustomerController::class, 'show']);
 Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
 Route::put('/customer/{id}', [CustomerController::class, 'update']);
 Route::delete('/customer/{id}', [CustomerController::class, 'destroy']);
 
+Route::get('/portal/customer', [PortalCustomerController::class, 'create']);
+Route::post('/portal/customer', [PortalCustomerController::class, 'store']);
+
 // Voucher
 Route::get('/voucher', [VoucherController::class, 'index']);
 Route::get('/voucher/create', [VoucherController::class, 'create']);
 Route::post('/voucher/create', [VoucherController::class, 'store']);
+Route::get('/voucher/export', [VoucherController::class, 'export']);
 Route::get('/voucher/{id}', [VoucherController::class, 'show']);
 Route::get('/voucher/{id}/edit', [VoucherController::class, 'edit']);
 Route::put('/voucher/{id}', [VoucherController::class, 'update']);

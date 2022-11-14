@@ -47,7 +47,8 @@
                             <footer class="mt-5">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a class="btn btn-secondary w-100 rounded-0 py-2" href="#">Register
+                                        <a class="btn btn-secondary w-100 rounded-0 py-2"
+                                            href="/portal/customer">Register
                                             Customer</a>
                                     </div>
                                     <div class="col-6">

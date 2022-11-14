@@ -18,7 +18,21 @@
                     <tr class="data-row" data-id="{{ $voucher->id }}" data-redirect="/voucher/{{ $voucher->id }}">
                         <td><input type="checkbox" class="check-row"></td>
                         <td class="data-column" data-column="voucher_code">{{ $voucher->voucher_code }}</td>
-                        <td class="data-column" data-column="res_partner_id">{{ $voucher->resPartner->name }}</td>
+                        <td class="data-column" data-column="res_partner_id">
+                            {{-- {{ dd($voucher->resPartners) }} --}}
+                            @php
+                                $row = 1;
+                            @endphp
+                            @foreach ($voucher->resPartners as $partner)
+                                @if ($row > 1)
+                                    <br />
+                                @endif
+                                {{ $partner->code . '-' . $partner->name }}
+                                @php
+                                    $row += 1;
+                                @endphp
+                            @endforeach
+                        </td>
                         <td class="data-column" data-column="issued_date">{{ $voucher->issued_date }}</td>
                         <td class="data-column" data-column="used_date">{{ $voucher->used_date }}</td>
                         <td class="data-column" data-column="remarks">{{ $voucher->remarks }}</td>
