@@ -162,9 +162,8 @@
                     <div class="col-sm-6">
                         <div class="mb-3 row">
                             <label for="input-code" class="col-sm-4 col-form-label fw-bold">Customer Code</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="input-code" name="code"
-                                    value="{{ old('code', $data->code) }}" required>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                {{ $data->code }}
                             </div>
                         </div>
                         <div class="mb-3 row">

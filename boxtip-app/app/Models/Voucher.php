@@ -57,7 +57,7 @@ class Voucher extends Model
             'voucher_code' => $this->generateVoucherCode($sequenceId),
             'type' => 'personal',
             'issued_date' => $today,
-            'expired_date' => date('Y/m/d', strtotime("+1 month", $today)),
+            'expired_date' => date('Y/m/d', strtotime("now +1 month")),
         ]);
         $partnerId->vouchers()->attach($new);
         return $new;

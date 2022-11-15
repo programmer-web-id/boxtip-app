@@ -53,6 +53,7 @@ class CustomerController extends Controller
         return view('customer.form', [
             'title' => 'Customer',
             'data' => False,
+            'header' => False,
             'view_mode' => 'create',
             'regular_bought_product_ids' => ProductCategory::all(),
             'service_consideration_ids' => ServiceConsideration::all(),
