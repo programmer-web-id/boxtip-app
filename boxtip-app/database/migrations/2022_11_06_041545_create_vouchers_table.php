@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->char('voucher_code');
+            $table->char('type');
             $table->date('issued_date');
+            $table->date('expired_date')->nullable();
             $table->date('used_date')->nullable();
             $table->text('remarks')->nullable();
         });

@@ -52,9 +52,12 @@ class Voucher extends Model
 
     public function generateVoucher(ResPartner $partnerId, IrSequence $sequenceId)
     {
+        $today = date('Y/m/d');
         $new = $this->create([
             'voucher_code' => $this->generateVoucherCode($sequenceId),
-            'issued_date' => date('Y/m/d'),
+            'type' => 'personal',
+            'issued_date' => $today,
+            'expired_date' => date('Y/m/d', strtotime("+1 month", $today)),
         ]);
         $partnerId->vouchers()->attach($new);
         return $new;

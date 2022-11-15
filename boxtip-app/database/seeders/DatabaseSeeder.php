@@ -142,19 +142,25 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('vouchers')->insert([
             'voucher_code' => 'SIGNUP0001',
+            'type' => 'personal',
             'issued_date' => '2022/11/09',
+            'expired_date' => '2022/12/09',
             'used_date' => '2022/11/11',
             'remarks' => 'Sign up voucher',
         ]);
         DB::table('vouchers')->insert([
             'voucher_code' => 'SIGNUP0002',
+            'type' => 'personal',
             'issued_date' => '2022/11/10',
+            'expired_date' => '2022/12/10',
             'used_date' => '2022/11/11',
             'remarks' => 'Sign up voucher',
         ]);
         DB::table('vouchers')->insert([
             'voucher_code' => 'SIGNIN0003',
+            'type' => 'personal',
             'issued_date' => '2022/11/12',
+            'expired_date' => '2022/12/12',
             'remarks' => 'Sign up voucher',
         ]);
         DB::table('ir_sequences')->insert([

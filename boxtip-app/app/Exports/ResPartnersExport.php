@@ -44,16 +44,6 @@ class ResPartnersExport implements FromArray, WithHeadings
         return $returnValues;
     }
 
-    // /**
-    //  * @return \Illuminate\Support\Collection
-    // public function collection()
-    //  */
-    // {
-    //     // dd($this->ids);
-    //     // return ResPartner::select('code', 'old_code', 'name', 'birth_date', 'is_male', 'email', 'phone', 'province', 'city', 'district', 'is_new_to_taobao', 'district', 'is_new_to_taobao')->get();
-    //     return []
-    // }
-
     /**
      * Write code on Method
      *

@@ -1,4 +1,5 @@
 // Control Panel Script
+
 // button
 $("#btn-create").click(function () {
     let pathnames = location.pathname.split("/");
@@ -86,8 +87,11 @@ $("#btn-delete").click(function () {
         ids.push($(this).parent().parent().data("id"));
     });
     if (ids.length > 0) {
-        $("#form-delete").attr("action", "/customer/" + ids);
+        console.log("/" + $(this).data("delete") + "/" + ids);
+        $("#form-delete").attr("action", $(this).data("delete") + "/" + ids);
         $("#btn-form-delete").click();
+    } else {
+        alert("No row to delete");
     }
 });
 
@@ -97,7 +101,7 @@ $("#btn-export").click(function () {
         ids.push($(this).parent().parent().data("id"));
     });
     if (ids.length > 0) {
-        location.href = "/customer/export/" + ids;
+        location.href = $(this).data("export") + ids;
     } else {
         alert("No row to export!");
     }
@@ -146,4 +150,31 @@ $("#check-all").click(function () {
 // detail
 $(".data-column").click(function () {
     location.href = $(this).parent().data("redirect");
+});
+
+// Voucher
+// input
+$("#customer-search").keyup(function (e) {
+    let search = $(this).val();
+    $(".customer-row").each(function () {
+        let data = $(this)
+            .find("label")
+            .text()
+            .replace(/\W/g, "")
+            .toLowerCase();
+        if (!search) {
+            $(this).removeClass("d-none");
+        }
+        if (data.includes(search.toLowerCase())) {
+            $(this).removeClass("d-none");
+        } else {
+            $(this).addClass("d-none");
+        }
+    });
+});
+$("#customer-search").keydown(function (e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+        return false;
+    }
 });

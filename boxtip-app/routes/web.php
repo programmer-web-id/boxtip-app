@@ -39,7 +39,7 @@ Route::post('/portal/customer', [PortalCustomerController::class, 'store']);
 Route::get('/voucher', [VoucherController::class, 'index']);
 Route::get('/voucher/create', [VoucherController::class, 'create']);
 Route::post('/voucher/create', [VoucherController::class, 'store']);
-Route::get('/voucher/export', [VoucherController::class, 'export']);
+Route::get('/voucher/export/{ids}', [VoucherController::class, 'export']);
 Route::get('/voucher/{id}', [VoucherController::class, 'show']);
 Route::get('/voucher/{id}/edit', [VoucherController::class, 'edit']);
 Route::put('/voucher/{id}', [VoucherController::class, 'update']);

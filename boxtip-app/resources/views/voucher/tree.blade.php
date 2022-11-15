@@ -7,8 +7,10 @@
                 <tr>
                     <th width="10"><input type="checkbox" id="check-all"></th>
                     <th>Voucher Code</th>
+                    <th>Voucher Type</th>
                     <th>Customer</th>
                     <th>Issued Date</th>
+                    <th>Expired Date</th>
                     <th>Used Date</th>
                     <th>Remarks</th>
                 </tr>
@@ -18,22 +20,28 @@
                     <tr class="data-row" data-id="{{ $voucher->id }}" data-redirect="/voucher/{{ $voucher->id }}">
                         <td><input type="checkbox" class="check-row"></td>
                         <td class="data-column" data-column="voucher_code">{{ $voucher->voucher_code }}</td>
+                        <td class="data-column text-capitalize" data-column="type">{{ $voucher->type }}</td>
                         <td class="data-column" data-column="res_partner_id">
-                            {{-- {{ dd($voucher->resPartners) }} --}}
-                            @php
-                                $row = 1;
-                            @endphp
-                            @foreach ($voucher->resPartners as $partner)
-                                @if ($row > 1)
-                                    <br />
-                                @endif
-                                {{ $partner->code . '-' . $partner->name }}
+                            {{-- {{ ($voucher->resPartners) }} --}}
+                            @if ($voucher->resPartners->count() > 0)
                                 @php
-                                    $row += 1;
+                                    $row = 1;
                                 @endphp
-                            @endforeach
+                                @foreach ($voucher->resPartners as $partner)
+                                    @if ($row > 1)
+                                        <br />
+                                    @endif
+                                    {{ $partner->code . '-' . $partner->name }}
+                                    @php
+                                        $row += 1;
+                                    @endphp
+                                @endforeach
+                            @else
+                                {{ '-' }}
+                            @endif
                         </td>
                         <td class="data-column" data-column="issued_date">{{ $voucher->issued_date }}</td>
+                        <td class="data-column" data-column="expired_date">{{ $voucher->expired_date }}</td>
                         <td class="data-column" data-column="used_date">{{ $voucher->used_date }}</td>
                         <td class="data-column" data-column="remarks">{{ $voucher->remarks }}</td>
                     </tr>

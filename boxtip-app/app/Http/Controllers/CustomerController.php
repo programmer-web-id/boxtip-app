@@ -36,6 +36,7 @@ class CustomerController extends Controller
 
         return view('customer.tree', [
             'title' => 'Customer',
+            'path' => '/customer',
             'customers' => ResPartner::where('type', 'customer')->get(),
             'fields' => $partner->getTableColumns(),
         ]);
@@ -117,10 +118,12 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
+        $data = ResPartner::findOrFail($id);
         //
         return view('customer.form', [
             'title' => 'Customer',
-            'data' => ResPartner::findOrFail($id),
+            'data' => $data,
+            'header' => $data->name,
             'view_mode' => 'read',
             'regular_bought_product_ids' => ProductCategory::all(),
             'service_consideration_ids' => ServiceConsideration::all(),
@@ -136,9 +139,11 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
+        $data = ResPartner::findOrFail($id);
         return view('customer.form', [
             'title' => 'Customer',
-            'data' => ResPartner::findOrFail($id),
+            'data' => $data,
+            'header' => $data->name,
             'view_mode' => 'edit',
             'service_consideration_ids' => ServiceConsideration::all(),
             'regular_bought_product_ids' => ProductCategory::all(),
