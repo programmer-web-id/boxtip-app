@@ -41,7 +41,6 @@ $("#btn-query").click(function () {
     if (validationField1 && field2 != null) {
         validationField2 = validateColumn(field2, fieldInput2, 2);
     }
-
     if (validationField1 && validationField2) {
         $(".data-row").each(function () {
             let data1 = $(this)
@@ -55,8 +54,8 @@ $("#btn-query").click(function () {
                 .replace(/\W/g, "")
                 .toLowerCase();
             if (
-                data1.includes(fieldInput1.toLowerCase()) &&
-                data2.includes(fieldInput2.toLowerCase())
+                data1.includes(fieldInput1.replace(/\W/g, "").toLowerCase()) &&
+                data2.includes(fieldInput2.replace(/\W/g, "").toLowerCase())
             ) {
                 $(this).removeClass("d-none");
             } else {
@@ -70,12 +69,11 @@ $("#btn-query").click(function () {
                 .text()
                 .replace(/\W/g, "")
                 .toLowerCase();
-            if (data1.includes(fieldInput1.toLowerCase())) {
+            if (data1.includes(fieldInput1.replace(/\W/g, "").toLowerCase())) {
                 $(this).removeClass("d-none");
             } else {
                 $(this).addClass("d-none");
             }
-            console.log(data1);
         });
     } else {
     }
@@ -87,7 +85,6 @@ $("#btn-delete").click(function () {
         ids.push($(this).parent().parent().data("id"));
     });
     if (ids.length > 0) {
-        console.log("/" + $(this).data("delete") + "/" + ids);
         $("#form-delete").attr("action", $(this).data("delete") + "/" + ids);
         $("#btn-form-delete").click();
     } else {
