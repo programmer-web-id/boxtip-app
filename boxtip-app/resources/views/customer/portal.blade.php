@@ -116,11 +116,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="input-regular-bought-product" class="form-label fw-bold">Produk apa saja yang
-                                    biasanya
-                                    dibeli
-                                    dari
-                                    Taobao?</label>
+                                <label for="input-regular-bought-product" class="form-label fw-bold">Kategori Produk apa yang ingin kamu Jastip ataupun Impor dari China?</label>
                                 <select class="form-select" id="input-regular-bought-product"
                                     name="regular_bought_product_id">
                                     <option selected disabled>Select Category</option>
