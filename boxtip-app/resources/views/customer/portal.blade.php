@@ -25,7 +25,7 @@
                                     {{-- <input type="text" class="form-control" id="input-code" name="code"> --}}
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-3 row d-none">
                                 <label for="input-old-code" class="col-sm-4 col-form-label fw-bold">Old Code</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="input-old-code" name="old_code"
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <a class="btn btn-secondary rounded-0 me-3" href="/">Sign In</a>
+                        <a class="btn btn-secondary rounded-0 me-3" href="/">Back</a>
                         <button type="submit" class="btn btn-primary rounded-0" id="btn-submit">Register</button>
                     </div>
                 </form>

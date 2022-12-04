@@ -86,7 +86,6 @@ class CustomerController extends Controller
             'service_consideration_id' => ['required'],
         ]);
 
-
         $new = ResPartner::create([
             'code' => $resPartner->generateCustomerCode($sequenceId),
             'old_code' => $request->old_code,

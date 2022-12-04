@@ -145,7 +145,8 @@ $("#check-all").click(function () {
     $(".check-row").prop("checked", this.checked);
 });
 // detail
-$(".data-column").click(function () {
+$(".data-column").dblclick(function () {
+    // console.log("Hehe");
     location.href = $(this).parent().data("redirect");
 });
 
