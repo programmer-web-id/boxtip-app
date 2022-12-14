@@ -3,7 +3,7 @@
         <div class="col">
             <button class="btn btn-link nav-link link-primary px-0" id="btn-back"><i
                     class="bi bi-arrow-left-circle-fill"></i> {{ $title }} List</button>
-            <h1>{{ $header ? $header : 'New' }}</h1>
+            <h1>{{ isset($header) ? $header : 'New' }}</h1>
         </div>
     </div>
     <div class="row">

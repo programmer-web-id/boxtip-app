@@ -9,6 +9,9 @@ use App\Models\Voucher;
 use App\Models\IrSequence;
 
 use App\Exports\VouchersExport;
+
+use App\Http\Requests\VoucherRequest;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 class VoucherController extends Controller
@@ -30,13 +33,11 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $voucher = new Voucher;
-        //        
-        return view('voucher.tree', [
+        return view('backend.voucher.index', [
             'title' => 'Voucher',
             'path' => '/voucher',
             'vouchers' => Voucher::all(),
-            'fields' => $voucher->getTableColumns(),
+            'fields' => getQueryFields('vouchers'),
         ]);
     }
 
@@ -48,11 +49,9 @@ class VoucherController extends Controller
     public function create()
     {
         //
-        return view('voucher.form', [
+        return view('backend.voucher.create', [
             'title' => 'Voucher',
             'view_mode' => 'create',
-            'data' => False,
-            'header' => False,
             'customer_ids' => ResPartner::where('type', 'customer')->get(),
         ]);
     }
@@ -63,7 +62,7 @@ class VoucherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VoucherRequest $request)
     {
         //
         // dd($request);
@@ -101,7 +100,7 @@ class VoucherController extends Controller
     {
         //
         $data = Voucher::findOrFail($id);
-        return view('voucher.form', [
+        return view('backend.voucher.show', [
             'title' => 'Voucher',
             'data' => $data,
             'header' => $data->voucher_code,
@@ -119,8 +118,7 @@ class VoucherController extends Controller
     {
         //
         $data = Voucher::findOrFail($id);
-        // dd($data->resPartners()->pluck('res_partner_id'));
-        return view('voucher.form', [
+        return view('backend.voucher.edit', [
             'title' => 'Voucher',
             'data' => $data,
             'header' => $data->voucher_code,
@@ -137,7 +135,7 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VoucherRequest $request, $id)
     {
         //
         $voucher = Voucher::findOrFail($id);
