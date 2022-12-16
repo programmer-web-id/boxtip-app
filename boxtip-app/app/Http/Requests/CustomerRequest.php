@@ -24,36 +24,27 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-        ];
+            'name' => ['required'],
+            'birth_date' => ['required'],
+            'is_male' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'district' => ['required'],
+            'is_new_to_taobao' => ['required'],
+            'regular_bought_product_id' => ['required'],
+            'service_consideration_id' => ['required'],
+        ] + ($this->isMethod('POST') ? $this->store() : $this->update());
     }
-
-    // public function rules()
-    // {
-    //     return ['name' => 'required|min:3|max:50']
-    //         +
-    //         ($this->isMethod('POST') ? $this->store() : $this->update());
-    // }
 
     protected function store()
     {
-        return [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:8',
-            //… more validation
-
-        ];
+        return [];
     }
 
     protected function update()
     {
-        return [
-            'email' => 'required|email|unique:users,email,' . $this->user()->id,
-            'logo' => 'nullable|image|max:1024',
-            'bio' => 'nullable|max:300',
-            'github_url' => 'nullable|url'
-            //… more validation
-
-        ];
+        return [];
     }
 }

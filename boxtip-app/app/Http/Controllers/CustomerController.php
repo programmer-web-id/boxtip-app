@@ -11,6 +11,9 @@ use App\Models\IrSequence;
 use App\Models\Voucher;
 
 use App\Exports\ResPartnersExport;
+
+use App\Http\Requests\CustomerRequest;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
@@ -34,7 +37,7 @@ class CustomerController extends Controller
     {
         $partner = new ResPartner;
 
-        return view('customer.tree', [
+        return view('backend.customer.index', [
             'title' => 'Customer',
             'path' => '/customer',
             'customers' => ResPartner::where('type', 'customer')->get(),
@@ -50,10 +53,8 @@ class CustomerController extends Controller
     public function create()
     {
         //
-        return view('customer.form', [
+        return view('backend.customer.create', [
             'title' => 'Customer',
-            'data' => False,
-            'header' => False,
             'view_mode' => 'create',
             'regular_bought_product_ids' => ProductCategory::all(),
             'service_consideration_ids' => ServiceConsideration::all(),
@@ -66,25 +67,11 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
         $resPartner = new ResPartner();
         $voucher = new Voucher();
         $sequenceId = IrSequence::where(['model' => 'res_partners', 'sequence_code' => 'create.customer'])->first();
-
-        $validatedData = $request->validate([
-            'name' => ['required'],
-            'birth_date' => ['required'],
-            'is_male' => ['required'],
-            'email' => ['required', 'email'],
-            'phone' => ['required'],
-            'province' => ['required'],
-            'city' => ['required'],
-            'district' => ['required'],
-            'is_new_to_taobao' => ['required'],
-            'regular_bought_product_id' => ['required'],
-            'service_consideration_id' => ['required'],
-        ]);
 
         $new = ResPartner::create([
             'code' => $resPartner->generateCustomerCode($sequenceId),
@@ -120,7 +107,7 @@ class CustomerController extends Controller
     {
         $data = ResPartner::findOrFail($id);
         //
-        return view('customer.form', [
+        return view('backend.customer.show', [
             'title' => 'Customer',
             'data' => $data,
             'header' => $data->name,
@@ -140,7 +127,7 @@ class CustomerController extends Controller
     {
         //
         $data = ResPartner::findOrFail($id);
-        return view('customer.form', [
+        return view('backend.customer.edit', [
             'title' => 'Customer',
             'data' => $data,
             'header' => $data->name,
@@ -159,23 +146,8 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => ['required'],
-            'birth_date' => ['required'],
-            'is_male' => ['required'],
-            'email' => ['required', 'email'],
-            'phone' => ['required'],
-            'province' => ['required'],
-            'city' => ['required'],
-            'district' => ['required'],
-            'is_new_to_taobao' => ['required'],
-            'regular_bought_product_id' => ['required'],
-            'service_consideration_id' => ['required'],
-        ]);
-        //
         $customer = ResPartner::findOrFail($id);
 
-        // $customer->code = $request->code;
         $customer->old_code = $request->old_code;
         $customer->name = $request->name;
         $customer->birth_date = $request->birth_date;

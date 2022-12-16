@@ -69,12 +69,6 @@ class VoucherController extends Controller
         $voucher = new Voucher();
         $today = date('Y/m/d');
 
-        $validatedData = $request->validate([
-            // 'voucher_code' => 'required',
-            'type' => 'required',
-            'customer_ids' => 'required',
-            'expired_date' => 'required_if:type,general',
-        ]);
         $voucherCode = $voucher->generateVoucherCode(
             IrSequence::where(['model' => 'vouchers', 'sequence_code' => 'signup.voucher'])->first()
         );
@@ -139,10 +133,6 @@ class VoucherController extends Controller
     {
         //
         $voucher = Voucher::findOrFail($id);
-        $validatedData = $request->validate([
-            'expired_date' => 'required',
-            'customer_ids' => 'required',
-        ]);
 
         $voucher->expired_date = $request->expired_date;
         $voucher->used_date = $request->used_date;
