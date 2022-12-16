@@ -70,6 +70,12 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label for="input-address" class="col-sm-4 col-form-label fw-bold">Address</label>
+                    <div class="col-sm-8">
+                        <textarea name="address" class="form-control" id="input-address" cols="30" rows="3">{{ old('address') }}</textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label for="input-province" class="col-sm-4 col-form-label fw-bold">Province</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="input-province" name="province"

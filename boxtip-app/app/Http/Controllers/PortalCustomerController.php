@@ -64,6 +64,7 @@ class PortalCustomerController extends Controller
             'is_male' => $request->is_male,
             'email' => $request->email,
             'phone' => $request->phone,
+            'address' => $request->address,
             'province' => $request->province,
             'city' => $request->city,
             'district' => $request->district,
