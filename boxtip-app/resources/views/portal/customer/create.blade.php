@@ -4,7 +4,6 @@
         <div class="card">
             <div class="card-body">
                 <h1 class="mb-5">Register Customer</h1>
-                {{-- //create --}}
                 <form method="POST">
                     @csrf
                     @if ($errors->any())
@@ -22,14 +21,6 @@
                                 <label for="input-code" class="col-sm-4 col-form-label fw-bold">Customer Code</label>
                                 <div class="col-sm-8 d-flex align-items-center">
                                     New Code
-                                    {{-- <input type="text" class="form-control" id="input-code" name="code"> --}}
-                                </div>
-                            </div>
-                            <div class="mb-3 row d-none">
-                                <label for="input-old-code" class="col-sm-4 col-form-label fw-bold">Old Code</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="input-old-code" name="old_code"
-                                        value="{{ old('old_code') }}">
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -116,7 +107,8 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="input-regular-bought-product" class="form-label fw-bold">Kategori Produk apa yang ingin kamu Jastip ataupun Impor dari China?</label>
+                                <label for="input-regular-bought-product" class="form-label fw-bold">Kategori produk apa
+                                    yang ingin anda impor?</label>
                                 <select class="form-select" id="input-regular-bought-product"
                                     name="regular_bought_product_id">
                                     <option selected disabled>Select Category</option>

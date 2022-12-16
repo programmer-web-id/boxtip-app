@@ -22,7 +22,7 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->char('code');
-            $table->char('old_code');
+            $table->char('old_code')->nullable();
             $table->char('type');
             $table->char('name');
             $table->date('birth_date');

@@ -19,23 +19,6 @@ class Voucher extends Model
         return $this->belongsToMany(ResPartner::class, 'res_partner_voucher');
     }
 
-    public function getTableColumns()
-    {
-        $raw = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-        return $this->removeBaseColumns($raw);
-    }
-
-    public function removeBaseColumns($array)
-    {
-        $VALUES = ['id', 'created_at', 'updated_at', 'res_partner_id'];
-        foreach ($VALUES as $value) {
-            if (($key = array_search($value, $array)) !== false) {
-                unset($array[$key]);
-            }
-        }
-        return $array;
-    }
-
     public function generateVoucherCode(IrSequence $sequenceId)
     {
         if ($sequenceId->is_number) {
