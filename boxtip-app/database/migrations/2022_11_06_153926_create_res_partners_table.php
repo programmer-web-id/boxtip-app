@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('is_male');
             $table->char('email');
             $table->char('phone');
+            $table->text('address');
             $table->char('province');
             $table->char('city');
             $table->char('district');

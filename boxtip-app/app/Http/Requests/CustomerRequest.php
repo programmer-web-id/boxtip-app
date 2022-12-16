@@ -29,6 +29,7 @@ class CustomerRequest extends FormRequest
             'is_male' => ['required'],
             'email' => ['required', 'email'],
             'phone' => ['required'],
+            'address' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
             'district' => ['required'],

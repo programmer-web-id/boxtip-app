@@ -82,6 +82,7 @@ class CustomerController extends Controller
             'is_male' => $request->is_male,
             'email' => $request->email,
             'phone' => $request->phone,
+            'address' => $request->address,
             'province' => $request->province,
             'city' => $request->city,
             'district' => $request->district,
@@ -154,6 +155,7 @@ class CustomerController extends Controller
         $customer->is_male = $request->is_male;
         $customer->email = $request->email;
         $customer->phone = $request->phone;
+        $customer->address = $request->address;
         $customer->province = $request->province;
         $customer->city = $request->city;
         $customer->district = $request->district;
