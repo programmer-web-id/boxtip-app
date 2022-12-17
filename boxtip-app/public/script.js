@@ -41,41 +41,29 @@ $("#btn-query").click(function () {
     if (validationField1 && field2 != null) {
         validationField2 = validateColumn(field2, fieldInput2, 2);
     }
-    if (validationField1 && validationField2) {
-        $(".data-row").each(function () {
-            let data1 = $(this)
-                .find("td[data-column='" + field1 + "']")
-                .text()
-                .replace(/\W/g, "")
-                .toLowerCase();
-            let data2 = $(this)
-                .find("td[data-column='" + field2 + "']")
-                .text()
-                .replace(/\W/g, "")
-                .toLowerCase();
-            if (
-                data1.includes(fieldInput1.replace(/\W/g, "").toLowerCase()) &&
-                data2.includes(fieldInput2.replace(/\W/g, "").toLowerCase())
-            ) {
-                $(this).removeClass("d-none");
-            } else {
-                $(this).addClass("d-none");
-            }
+
+    if (validationField1 || validationField2) {
+        values = {};
+        values[field1] = fieldInput1.toUpperCase();
+        if (validationField2) {
+            values[field2] = fieldInput2.toUpperCase();
+        }
+        $.ajax({
+            url: "/customer",
+            method: "GET",
+            data: values,
+            beforeSend: function () {
+                $("#app").after(setLoadingScreen());
+            },
+            success: function (data) {
+                var newDoc = document.open("text/html", "replace");
+                newDoc.write(data);
+                newDoc.close();
+            },
+            complete: function () {
+                $(".loading-screen").remove();
+            },
         });
-    } else if (validationField1 && !validationField2) {
-        $(".data-row").each(function () {
-            let data1 = $(this)
-                .find("td[data-column='" + field1 + "']")
-                .text()
-                .replace(/\W/g, "")
-                .toLowerCase();
-            if (data1.includes(fieldInput1.replace(/\W/g, "").toLowerCase())) {
-                $(this).removeClass("d-none");
-            } else {
-                $(this).addClass("d-none");
-            }
-        });
-    } else {
     }
 });
 
@@ -89,6 +77,38 @@ $("#btn-delete").click(function () {
         $("#btn-form-delete").click();
     } else {
         alert("No row to delete");
+    }
+});
+
+$("#btn-archive").click(function () {
+    let ids = [];
+    $(".check-row:checked").each(function () {
+        ids.push($(this).parent().parent().data("id"));
+    });
+    if (ids.length > 0) {
+        $("#form-archive").attr(
+            "action",
+            $(this).data("archive") + "/archive/" + ids
+        );
+        $("#btn-form-archive").click();
+    } else {
+        alert("No row to archive");
+    }
+});
+
+$("#btn-unarchive").click(function () {
+    let ids = [];
+    $(".check-row:checked").each(function () {
+        ids.push($(this).parent().parent().data("id"));
+    });
+    if (ids.length > 0) {
+        $("#form-unarchive").attr(
+            "action",
+            $(this).data("unarchive") + "/unarchive/" + ids
+        );
+        $("#btn-form-unarchive").click();
+    } else {
+        alert("No row to unarchive");
     }
 });
 
@@ -159,7 +179,7 @@ $("#input-province").change(function () {
     $.ajax({
         url: "/data/city/" + $(this).val(),
         beforeSend: function () {
-            $("#app").after(getLoadingScreen());
+            $("#app").after(setLoadingScreen());
         },
         success: function (data) {
             data.forEach((city) => {
@@ -167,6 +187,8 @@ $("#input-province").change(function () {
                     "<option value='" + city.id + "'>" + city.name + "</option>"
                 );
             });
+        },
+        complete: function () {
             $(".loading-screen").remove();
         },
     });
@@ -200,6 +222,8 @@ $("#input-city").change(function () {
                         "</option>"
                 );
             });
+        },
+        complete: function () {
             $(".loading-screen").remove();
         },
     });
@@ -232,6 +256,6 @@ $("#customer-search").keydown(function (e) {
     }
 });
 
-function getLoadingScreen() {
+function setLoadingScreen() {
     return "<div class='loading-screen'><button class='btn btn-primary' type='button' disabled><span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>Loading...</button></div>";
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid py-3 bg-light border-bottom sticky-top">
+<div class="container-fluid py-3 bg-light border-bottom">
     <div class="row mb-3">
         <div class="col">
             <button class="btn btn-link nav-link link-primary px-0" id="btn-back"><i

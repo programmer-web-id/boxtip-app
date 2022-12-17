@@ -28,6 +28,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/customer', [CustomerController::class, 'index']);
 Route::get('/customer/create', [CustomerController::class, 'create']);
 Route::post('/customer/create', [CustomerController::class, 'store']);
+Route::post('/customer/archive/{ids}', [CustomerController::class, 'archive']);
+Route::post('/customer/unarchive/{ids}', [CustomerController::class, 'unarchive']);
 Route::get('/customer/export/{ids}', [CustomerController::class, 'export']);
 Route::get('/customer/{id}', [CustomerController::class, 'show']);
 Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);

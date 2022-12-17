@@ -14,6 +14,7 @@ use App\Models\City;
 use App\Models\District;
 
 use App\Models\IrSequence;
+use PDO;
 
 class ResPartner extends Model
 {
@@ -49,6 +50,16 @@ class ResPartner extends Model
     public function district()
     {
         return $this->belongsTo(District::class);
+    }
+
+    public static function archive($ids)
+    {
+        return ResPartner::whereIn('id', $ids)->update(['active' => 0]);
+    }
+
+    public static function unarchive($ids)
+    {
+        return ResPartner::whereIn('id', $ids)->update(['active' => 1]);
     }
 
     public function generateCustomerCode(IrSequence $sequenceId)
