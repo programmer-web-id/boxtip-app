@@ -16,39 +16,33 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class VoucherController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
+        $vouchers = ($request->all()) ? $this->search($request) : Voucher::all();
         return view('backend.voucher.index', [
             'title' => 'Voucher',
             'path' => '/voucher',
-            'vouchers' => Voucher::all(),
+            'vouchers' => $vouchers,
             'fields' => getQueryFields('vouchers'),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function search(Request $request)
+    {
+        $query = "";
+        foreach ($request->all() as $key => $value) {
+            $query .= (($key === array_key_first($request->all())) ? "" : " AND ") . "UPPER({$key}) LIKE UPPER('%{$value}%')";
+        };
+        return ResPartner::whereRaw($query)->get();
+    }
+
     public function create()
     {
-        //
         return view('backend.voucher.create', [
             'title' => 'Voucher',
             'view_mode' => 'create',
@@ -56,16 +50,8 @@ class VoucherController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(VoucherRequest $request)
     {
-        //
-        // dd($request);
         $voucher = new Voucher();
         $today = date('Y/m/d');
 
@@ -84,15 +70,8 @@ class VoucherController extends Controller
         return redirect('/voucher/' . $new->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
         $data = Voucher::findOrFail($id);
         return view('backend.voucher.show', [
             'title' => 'Voucher',
@@ -102,15 +81,8 @@ class VoucherController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
         $data = Voucher::findOrFail($id);
         return view('backend.voucher.edit', [
             'title' => 'Voucher',
@@ -122,16 +94,8 @@ class VoucherController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(VoucherRequest $request, $id)
     {
-        //
         $voucher = Voucher::findOrFail($id);
 
         $voucher->expired_date = $request->expired_date;
@@ -145,19 +109,13 @@ class VoucherController extends Controller
         return redirect('/voucher/' . $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
         $ids = explode(',', $id);
         Voucher::destroy($ids);
         return redirect('/voucher');
     }
+
     public function export($ids)
     {
         $vouchers = new VouchersExport();

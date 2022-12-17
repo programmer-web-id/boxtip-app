@@ -20,7 +20,10 @@ if (!function_exists("sanitizeFields")) {
                 'type',
                 'is_new_to_taobao',
                 'regular_bought_product_id',
-                'service_consideration_id'
+                'service_consideration_id',
+                'province_id',
+                'city_id',
+                'district_id'
             ],
             'vouchers' => ['res_partner_id'],
         ];

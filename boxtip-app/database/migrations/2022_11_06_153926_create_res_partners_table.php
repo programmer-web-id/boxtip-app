@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('res_partners', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->boolean('active')->default(true);
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users')

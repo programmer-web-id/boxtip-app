@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\ProductCategory;
 use App\Models\ResPartner;
@@ -13,43 +14,40 @@ use App\Models\Province;
 use App\Models\City;
 
 use App\Exports\ResPartnersExport;
-
 use App\Http\Requests\CustomerRequest;
-
 use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
+        $customers = ($request->all()) ? $this->search($request) : ResPartner::where('active', 1)->where('type', 'customer')->get();
+
         return view('backend.customer.index', [
             'title' => 'Customer',
             'path' => '/customer',
-            'customers' => ResPartner::where('type', 'customer')->get(),
+            'delete' => False,
+            'archive' => True,
+            'unarchive' => True,
+            'customers' => $customers,
             'fields' => getQueryFields('res_partners'),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function search(Request $request)
+    {
+        $query = "";
+        foreach ($request->all() as $key => $value) {
+            $query .= (($key === array_key_first($request->all())) ? "" : " AND ") . "UPPER({$key}) LIKE UPPER('%{$value}%')";
+        };
+        return ResPartner::whereRaw($query)->where('type', 'customer')->get();
+    }
+
     public function create()
     {
         //
@@ -73,12 +71,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CustomerRequest $request)
     {
         $resPartner = new ResPartner();
@@ -110,12 +102,6 @@ class CustomerController extends Controller
         return redirect('/customer/' . $new->id)->with('created', [true, $new, $newVoucher]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $data = ResPartner::findOrFail($id);
@@ -130,12 +116,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = ResPartner::findOrFail($id);
@@ -161,13 +141,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(CustomerRequest $request, $id)
     {
         $customer = ResPartner::findOrFail($id);
@@ -191,17 +164,24 @@ class CustomerController extends Controller
         return redirect('/customer/' . $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
         $ids = explode(',', $id);
         ResPartner::destroy($ids);
+        return redirect('/customer');
+    }
+
+    public function archive($id)
+    {
+        $ids = explode(',', $id);
+        ResPartner::archive($ids);
+        return redirect('/customer');
+    }
+
+    public function unarchive($id)
+    {
+        $ids = explode(',', $id);
+        ResPartner::unarchive($ids);
         return redirect('/customer');
     }
 

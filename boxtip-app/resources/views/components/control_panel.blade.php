@@ -1,4 +1,4 @@
-<div class="container-fluid py-3 bg-light border-bottom sticky-top">
+<div class="container-fluid py-3 bg-light border-bottom">
     <h1>{{ $title }} List</h1>
     <div class="row my-3">
         <div class="col-md-11">
@@ -61,15 +61,43 @@
                     Action
                 </button>
                 <ul class="dropdown-menu">
-                    <li><button class="dropdown-item" id="btn-export"
-                            data-export="{{ $path . '/export/' }}">Export</button></li>
-                    <li><button class="dropdown-item" id="btn-delete" data-delete="{{ $path }}">Delete</button>
+                    <li>
+                        <button class="dropdown-item" id="btn-export"
+                            data-export="{{ $path . '/export/' }}">Export</button>
                     </li>
-                    <form action="{{ $path }}" method="POST" id="form-delete" class="d-none">
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" id="btn-form-delete"></button>
-                    </form>
+                    @if ($delete)
+                        <li>
+                            <button class="dropdown-item" id="btn-delete"
+                                data-delete="{{ $path }}">Delete</button>
+                            <form action="{{ $path }}" method="POST" id="form-delete" class="d-none">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" id="btn-form-delete"></button>
+                            </form>
+                        </li>
+                    @endif
+                    @if ($archive)
+                        <li>
+                            <button class="dropdown-item" id="btn-archive"
+                                data-archive="{{ $path }}">Archive</button>
+                        </li>
+                        <form action="{{ $path }}" method="POST" id="form-archive" class="d-none">
+                            @csrf
+                            <input type="hidden" name="_method" value="POST">
+                            <button type="submit" id="btn-form-archive"></button>
+                        </form>
+                    @endif
+                    @if ($unarchive)
+                        <li>
+                            <button class="dropdown-item" id="btn-unarchive"
+                                data-unarchive="{{ $path }}">Unarchive</button>
+                        </li>
+                        <form action="{{ $path }}" method="POST" id="form-unarchive" class="d-none">
+                            @csrf
+                            <input type="hidden" name="_method" value="POST">
+                            <button type="submit" id="btn-form-unarchive"></button>
+                        </form>
+                    @endif
                 </ul>
             </div>
         </div>
