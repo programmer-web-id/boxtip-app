@@ -30,20 +30,12 @@ return new class extends Migration
             $table->char('email');
             $table->char('phone');
             $table->text('address');
-            $table->char('province');
-            $table->char('city');
-            $table->char('district');
+            $table->foreignId('province_id');
+            $table->foreignId('city_id');
+            $table->foreignId('district_id');
             $table->boolean('is_new_to_taobao')->nullable();
             $table->foreignId('regular_bought_product_id')->nullable();
-            // ->nullable()
-            // ->constrained('product_categories')
-            // ->nullOnDelete()
-            // ->cascadeOnUpdate();
             $table->foreignId('service_consideration_id')->nullable();
-            // ->nullable()
-            // ->constrained('service_considerations')
-            // ->nullOnDelete()
-            // ->cascadeOnUpdate();
         });
         /*
             alter table `res_partners` add constraint `res_partners_service_consideration_id_foreign` foreign key (`service_consideration_id`) references `service_considerations` (`id`) on delete set null on update cascade;

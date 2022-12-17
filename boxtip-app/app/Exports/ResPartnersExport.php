@@ -17,7 +17,7 @@ class ResPartnersExport implements FromArray, WithHeadings
 
     public function array(): array
     {
-        $customers = ResPartner::select('code', 'old_code', 'name', 'birth_date', 'is_male', 'email', 'phone', 'province', 'city', 'district', 'is_new_to_taobao', 'regular_bought_product_id', 'service_consideration_id')->whereIn('id', $this->ids)->get();
+        $customers = ResPartner::select('code', 'old_code', 'name', 'birth_date', 'is_male', 'email', 'phone', 'address', 'province', 'city', 'district', 'is_new_to_taobao', 'regular_bought_product_id', 'service_consideration_id')->whereIn('id', $this->ids)->get();
         $returnValues = [];
 
         foreach ($customers as $customer) {
@@ -32,6 +32,7 @@ class ResPartnersExport implements FromArray, WithHeadings
                     $customer->is_male ? 'Male' : 'Female',
                     $customer->email,
                     $customer->phone,
+                    $customer->address,
                     $customer->province,
                     $customer->city,
                     $customer->district,
@@ -51,6 +52,6 @@ class ResPartnersExport implements FromArray, WithHeadings
      */
     public function headings(): array
     {
-        return ["Code", "Old Code", "Name", "Birth Date", "Gender", "Email", "Phone", "Province", "City", "District", "New to Taobao", "Regular Bought Product", "Service Consideration"];
+        return ["Code", "Old Code", "Name", "Birth Date", "Gender", "Email", "Phone", "Address", "Province", "City", "District", "New to Taobao", "Regular Bought Product", "Service Consideration"];
     }
 }

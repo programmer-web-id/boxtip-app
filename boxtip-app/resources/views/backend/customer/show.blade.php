@@ -55,19 +55,19 @@
                 <div class="mb-3 row">
                     <label for="input-province" class="col-sm-4 col-form-label fw-bold">Province</label>
                     <div class="col-sm-8 d-flex align-items-center">
-                        {{ $data->province }}
+                        {{ $data->province->name }}
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label for="input-city" class="col-sm-4 col-form-label fw-bold">City</label>
                     <div class="col-sm-8 d-flex align-items-center">
-                        {{ $data->city }}
+                        {{ $data->city->name }}
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label for="input-district" class="col-sm-4 col-form-label fw-bold">District</label>
                     <div class="col-sm-8 d-flex align-items-center">
-                        {{ $data->district }}
+                        {{ $data->district->name }}
                     </div>
                 </div>
             </div>

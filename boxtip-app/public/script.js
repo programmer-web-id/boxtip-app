@@ -150,6 +150,61 @@ $(".data-column").dblclick(function () {
     location.href = $(this).parent().data("redirect");
 });
 
+// change province -> update city selections -> reset districts
+$("#input-province").change(function () {
+    // remove selection at city
+    $("#input-city").html("<option selected disabled>Select City</option>");
+
+    // append city selection as per province
+    $.ajax({
+        url: "/data/city/" + $(this).val(),
+        beforeSend: function () {
+            $("#app").after(getLoadingScreen());
+        },
+        success: function (data) {
+            data.forEach((city) => {
+                $("#input-city").append(
+                    "<option value='" + city.id + "'>" + city.name + "</option>"
+                );
+            });
+            $(".loading-screen").remove();
+        },
+    });
+
+    // remove selection at district
+    $("#input-district").html(
+        "<option selected disabled>Select District</option>"
+    );
+});
+
+// change city -> update districts
+$("#input-city").change(function () {
+    // remove selection at district
+    $("#input-district").html(
+        "<option selected disabled>Select District</option>"
+    );
+
+    // append district selection as per city
+    $.ajax({
+        url: "/data/district/" + $(this).val(),
+        beforeSend: function () {
+            $("#app").after(getLoadingScreen());
+        },
+        success: function (data) {
+            data.forEach((district) => {
+                $("#input-district").append(
+                    "<option value='" +
+                        district.id +
+                        "'>" +
+                        district.name +
+                        "</option>"
+                );
+            });
+            $(".loading-screen").remove();
+        },
+    });
+});
+
 // Voucher
 // input
 $("#customer-search").keyup(function (e) {
@@ -176,3 +231,7 @@ $("#customer-search").keydown(function (e) {
         return false;
     }
 });
+
+function getLoadingScreen() {
+    return "<div class='loading-screen'><button class='btn btn-primary' type='button' disabled><span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>Loading...</button></div>";
+}

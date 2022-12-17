@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('res_subdivisions', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->char('province');
-            $table->char('city');
-            $table->char('district');
+            $table->foreignId('province_id');
+            $table->char('name');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('res_subdivisions');
+        Schema::dropIfExists('cities');
     }
 };

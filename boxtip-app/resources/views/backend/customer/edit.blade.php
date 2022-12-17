@@ -79,22 +79,40 @@
                 <div class="mb-3 row">
                     <label for="input-province" class="col-sm-4 col-form-label fw-bold">Province</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input-province" name="province"
-                            value="{{ old('province', $data->province) }}">
+                        <select name="province_id" id="input-province" class="form-select">
+                            <option selected disabled>Select Province</option>
+                            @foreach ($province_ids as $province_id)
+                                <option value="{{ $province_id->id }}" @selected(old('province_id', $data->province_id) == $province_id->id)>
+                                    {{ $province_id->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label for="input-city" class="col-sm-4 col-form-label fw-bold">City</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input-city" name="city"
-                            value="{{ old('city', $data->city) }}">
+                        <select name="city_id" id="input-city" class="form-select">
+                            <option selected disabled>Select City</option>
+                            @foreach ($city_ids as $city_id)
+                                <option value="{{ $city_id['id'] }}" @selected(old('city_id', $data->city_id) == $city_id['id'])>
+                                    {{ $city_id['name'] }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label for="input-district" class="col-sm-4 col-form-label fw-bold">District</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="input-district" name="district"
-                            value="{{ old('district', $data->district) }}">
+                        <select name="district_id" id="input-district" class="form-select">
+                            <option selected disabled>Select District</option>
+                            @foreach ($district_ids as $district_id)
+                                <option value="{{ $district_id['id'] }}" @selected(old('district_id', $data->district_id) == $district_id['id'])>
+                                    {{ $district_id['name'] }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>

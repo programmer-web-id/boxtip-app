@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PortalCustomerController;
+use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -44,3 +46,25 @@ Route::get('/voucher/{id}', [VoucherController::class, 'show']);
 Route::get('/voucher/{id}/edit', [VoucherController::class, 'edit']);
 Route::put('/voucher/{id}', [VoucherController::class, 'update']);
 Route::delete('/voucher/{id}', [VoucherController::class, 'destroy']);
+
+// Province
+Route::get('/province', [ProvinceController::class, 'index']);
+Route::get('/province/create', [ProvinceController::class, 'create']);
+Route::post('/province/create', [ProvinceController::class, 'store']);
+Route::get('/province/{id}', [ProvinceController::class, 'show']);
+Route::get('/province/{id}/edit', [ProvinceController::class, 'edit']);
+Route::put('/province/{id}', [ProvinceController::class, 'update']);
+Route::delete('/province/{id}', [ProvinceController::class, 'destroy']);
+
+// City
+Route::get('/city', [CityController::class, 'index']);
+Route::get('/city/create', [CityController::class, 'create']);
+Route::post('/city/create', [CityController::class, 'store']);
+Route::get('/city/{id}', [CityController::class, 'show']);
+Route::get('/city/{id}/edit', [CityController::class, 'edit']);
+Route::put('/city/{id}', [CityController::class, 'update']);
+Route::delete('/city/{id}', [CityController::class, 'destroy']);
+
+// Region
+Route::get('/data/city/{id}', [ProvinceController::class, 'getCities']);
+Route::get('/data/district/{id}', [CityController::class, 'getDistricts']);

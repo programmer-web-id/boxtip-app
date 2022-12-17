@@ -6,12 +6,12 @@
         <div class="row my-3">
             <div class="col-4"><a href="/customer" class="nav-link">Customer</a></div>
             <div class="col-4"><a href="#" class="nav-link">Forwarder</a></div>
-            <div class="col-4"></div>
+            <div class="col-4"><a href="/province" class="nav-link">Province</a></div>
         </div>
         <div class="row my-3">
             <div class="col-4"><a href="#" class="nav-link">Customer Type</a></div>
             <div class="col-4"><a href="#" class="nav-link">Platform</a></div>
-            <div class="col-4"></div>
+            <div class="col-4"><a href="/city" class="nav-link">City</a></div>
         </div>
         <div class="row my-3">
             <div class="col-4"><a href="#" class="nav-link">Item Category</a></div>

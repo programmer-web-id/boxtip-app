@@ -9,6 +9,10 @@ use App\Models\Voucher;
 use App\Models\ProductCategory;
 use App\Models\ServiceConsideration;
 
+use App\Models\Province;
+use App\Models\City;
+use App\Models\District;
+
 use App\Models\IrSequence;
 
 class ResPartner extends Model
@@ -32,22 +36,19 @@ class ResPartner extends Model
         return $this->belongsToMany(Voucher::class, 'res_partner_voucher');
     }
 
-    public function getTableColumns()
+    public function province()
     {
-        $raw = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
-        $raw = $this->removeBaseColumns($raw);
-        return $raw;
+        return $this->belongsTo(Province::class);
     }
 
-    public function removeBaseColumns($array)
+    public function city()
     {
-        $VALUES = ['id', 'created_at', 'updated_at', 'user_id', 'type'];
-        foreach ($VALUES as $value) {
-            if (($key = array_search($value, $array)) !== false) {
-                unset($array[$key]);
-            }
-        }
-        return $array;
+        return $this->belongsTo(City::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 
     public function generateCustomerCode(IrSequence $sequenceId)
