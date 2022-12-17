@@ -8,6 +8,9 @@ use App\Models\ServiceConsideration;
 use App\Models\IrSequence;
 use App\Models\Voucher;
 
+use App\Models\Province;
+use App\Models\City;
+
 use App\Http\Requests\CustomerRequest;
 
 class PortalCustomerController extends Controller
@@ -38,9 +41,20 @@ class PortalCustomerController extends Controller
     public function create()
     {
         //
+        $city_ids = [];
+        $district_ids = [];
+        if (old('province_id')) {
+            $city_ids = Province::getCities(old('province_id'));
+            if (old('city_id')) {
+                $district_ids = City::getDistricts(old('city_id'));
+            };
+        }
         return view('portal.customer.create', [
             'regular_bought_product_ids' => ProductCategory::all(),
             'service_consideration_ids' => ServiceConsideration::all(),
+            'province_ids' => Province::all(),
+            'city_ids' => $city_ids,
+            'district_ids' => $district_ids,
         ]);
     }
 
@@ -65,9 +79,9 @@ class PortalCustomerController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
-            'province' => $request->province,
-            'city' => $request->city,
-            'district' => $request->district,
+            'province_id' => $request->province_id,
+            'city_id' => $request->city_id,
+            'district_id' => $request->district_id,
             'is_new_to_taobao' => $request->is_new_to_taobao,
             'regular_bought_product_id' => $request->regular_bought_product_id,
             'service_consideration_id' => $request->service_consideration_id,
