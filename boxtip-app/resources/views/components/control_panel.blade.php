@@ -1,4 +1,4 @@
-<div class="container-fluid py-3 bg-light border-bottom">
+<div class="container-fluid py-3 bg-light border-bottom sticky-top">
     <h1>{{ $title }} List</h1>
     <div class="row my-3">
         <div class="col-md-11">

@@ -29,9 +29,9 @@
                         <td class="data-column" data-column="is_male">{{ $customer->is_male ? 'Male' : 'Female' }}</td>
                         <td class="data-column" data-column="email">{{ $customer->email }}</td>
                         <td class="data-column" data-column="phone">{{ $customer->phone }}</td>
-                        <td class="data-column" data-column="province">{{ $customer->province }}</td>
-                        <td class="data-column" data-column="city">{{ $customer->city }}</td>
-                        <td class="data-column" data-column="district">{{ $customer->district }}</td>
+                        <td class="data-column" data-column="province_id">{{ $customer->province->name }}</td>
+                        <td class="data-column" data-column="city_id">{{ $customer->city->name }}</td>
+                        <td class="data-column" data-column="district_id">{{ $customer->district->name }}</td>
                     </tr>
                 @endforeach
             </tbody>

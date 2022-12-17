@@ -15,11 +15,17 @@ if (!function_exists("sanitizeFields")) {
     {
         $COMMON = ['id', 'created_at', 'updated_at'];
         $SPECIFIC = [
-            'res_partners' => ['user_id', 'type'],
+            'res_partners' => [
+                'user_id',
+                'type',
+                'is_new_to_taobao',
+                'regular_bought_product_id',
+                'service_consideration_id'
+            ],
             'vouchers' => ['res_partner_id'],
         ];
 
-        foreach (($COMMON + $SPECIFIC[$table]) as $value) {
+        foreach (array_merge($COMMON, $SPECIFIC[$table]) as $value) {
             if (($key = array_search($value, $raw)) !== false) {
                 unset($raw[$key]);
             }
