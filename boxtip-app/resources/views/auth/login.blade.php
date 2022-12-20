@@ -47,12 +47,13 @@
                             <footer class="mt-5">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a class="btn btn-secondary w-100 rounded-0 py-2"
-                                            href="/portal/customer">Register
+                                        <a class="btn btn-secondary w-100 rounded-0 py-2" href="/portal/customer"
+                                            style="font-size:min(3.6vw, 16px);">Register
                                             Customer</a>
                                     </div>
                                     <div class="col-6">
-                                        <button type="submit" class="btn btn-primary w-100 rounded-0 py-2">Sign
+                                        <button type="submit" class="btn btn-primary w-100 rounded-0 py-2"
+                                            style="font-size:min(3.6vw, 16px);">Sign
                                             In</button>
                                     </div>
                                 </div>

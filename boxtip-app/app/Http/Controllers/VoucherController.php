@@ -27,6 +27,9 @@ class VoucherController extends Controller
         return view('backend.voucher.index', [
             'title' => 'Voucher',
             'path' => '/voucher',
+            'delete' => True,
+            'archive' => False,
+            'unarchive' => False,
             'vouchers' => $vouchers,
             'fields' => getQueryFields('vouchers'),
         ]);

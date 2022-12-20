@@ -210,7 +210,7 @@ $("#input-city").change(function () {
     $.ajax({
         url: "/data/district/" + $(this).val(),
         beforeSend: function () {
-            $("#app").after(getLoadingScreen());
+            $("#app").after(setLoadingScreen());
         },
         success: function (data) {
             data.forEach((district) => {

@@ -104,13 +104,13 @@
         <div class="data-created">
             <div class="data-description">
                 <h2 class="fs-1 mb-4">Congratulations</h2>
-                <h1 style="font-size: 3rem;">
+                <h1 style="font-size: min(3rem, 10vw);">
                     {{ session('created')[1]->code . ' - ' . session('created')[1]->name }}
                 </h1>
-                <p class="fs-5">Akun anda sudah aktif dan bisa digunakan.<br />
+                <p style="font-size:min(3.8vw, 20px)">Akun anda sudah aktif dan bisa digunakan.<br />
                     Silahkan copy kode voucher dibawah untuk mendapatkan Promo Free Ongkir 1 kg</p>
                 <div class="data-content border p-4 mb-5">
-                    <h3 style="font-size: 4rem;">
+                    <h3 style="font-size: min(8vw, 4rem);">
                         {{ session('created')[2]->voucher_code }}
                     </h3>
                 </div>
